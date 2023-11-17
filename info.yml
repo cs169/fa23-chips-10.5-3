@@ -1,0 +1,24 @@
+project:
+  name: 'CS169-fa23-03'
+  owner: 'fa23'
+  teamId: '03'
+  identities: {}
+  notifications:
+    email: 'danielpngo@berkeley.edu'
+  members:
+    member1:
+      name: 'Priscila'
+      surname: 'Figueroa'
+      githubUsername: 'Priscilafigueroa'
+    member2:
+      name: 'Erick'
+      surname: 'Higareda'
+      githubUsername: 'ehigareda'
+    member3:
+      name: 'Daniel'
+      surname: 'Ngo'
+      githubUsername: 'danielpngo'
+    member4:
+      name: 'Hongyuan'
+      surname: 'Kang'
+      githubUsername: 'SpecialAir123'
