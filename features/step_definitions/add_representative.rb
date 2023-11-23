@@ -12,7 +12,7 @@ end
 When /^I add the representative "(.*)"$/ do |name|
   rep_name = OpenStruct.new(name: name)
 
-  rep_info = OpenStruct.new('officials' => [rep_name], 'offices' => [])
+  rep_info = OpenStruct.new(officials: [rep_name], offices: [])
 
   Representative.civic_api_to_representative_params(rep_info)
 end
