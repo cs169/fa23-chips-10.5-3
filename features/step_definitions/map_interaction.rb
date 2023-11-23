@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 Given('I am on the homepage') do
   visit root_path
 end
@@ -27,5 +28,4 @@ Then('I should see the representatives of the county {string}') do |county_name|
   expect(page).to have_content(county_name)
   expect(page).to have_content('Shari L. Freidenrich')
   expect(page).to have_content('Todd Spitzer')
-
 end

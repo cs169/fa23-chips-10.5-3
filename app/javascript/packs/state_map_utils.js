@@ -64,7 +64,7 @@ exports.setupEventHandlers = (stateMap) => {
     };
     // changed the url of clickCall
     const clickCallback = (elem) => {
-      //extract the county name and use it as a parameter to search
+        // extract the county name and use it as a parameter to search
         const countyName = elem.attr('data-county-name');
         window.location.href = `/search?address=${countyName}`;
     };
