@@ -1,16 +1,11 @@
 Feature: County Interaction
   As a user
   I want to interact with the counties list on the state page
-  So that I can view details about different counties
-
-  Scenario Outline: Viewing details of a county from the list
-    Given I am on the homepage
-    When I select the state "<state>"
-    And I click on the link for county "<county>"
-    Then I should see details for county "<county>"
-
-  Examples:
-    | state | county      |
-    | TX    | Travis      |
-    | CA    | Los Angeles |
-    | NY    | Albany      |
+  So that I can view representatives about different counties
+  
+  Scenario Outline: Viewing representatives of a county
+   Given I am on the homepage 
+   When I choose a state "CA"
+   When I expand the county details section
+   When I click the view button of a county "Orange"
+   Then I should see the representatives of the county "Orange"
