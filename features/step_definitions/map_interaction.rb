@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 Given('I am on the homepage') do
   visit root_path
 end
@@ -10,15 +11,13 @@ When('I choose a state {string}') do |state|
 end
 
 When('I expand the county details section') do
-  
-
   # Find and click the button to expand the county details
   find('#actionmap-counties-details-header button.collapsed', wait: 10).click
 end
 
 When('I click the view button of a county {string}') do |county_name|
   within('#actionmap-state-counties-details') do
-  click_link('View', href: /#{county_name}/)
+    click_link('View', href: /#{county_name}/)
   end
 end
 
