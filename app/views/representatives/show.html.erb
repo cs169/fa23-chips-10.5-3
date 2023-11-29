@@ -1,0 +1,24 @@
+<!-- app/views/representatives/show.html.erb -->
+
+<div class="container mt-4">
+  <div class="card">
+    <div class="card-header">
+      <h1><%= @representative.name %></h1>
+    </div>
+    <div class="card-body">
+      <% if @representative.photo_url.present? %>
+        <img src="<%= @representative.photo_url %>" alt="<%= @representative.name %>" class="img-fluid rounded mb-3">
+      <% end %>
+
+      <p><strong>Title:</strong> <%= @representative.title %></p>
+      <p><strong>Political Party:</strong> <%= @representative.party %></p>
+      <p><strong>Address:</strong>
+        <%= @representative.street %><br>
+        <%= @representative.city %>, <%= @representative.state %> <%= @representative.zip %>
+      </p>
+
+      <!-- Additional fields can be added here if necessary -->
+
+    </div>
+  </div>
+</div>

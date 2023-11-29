@@ -10,21 +10,34 @@ class Representative < ApplicationRecord
       ocdid_temp = ''
       title_temp = ''
 
+      # Iterate through offices to find the office and division ID for the current official
       rep_info.offices.each do |office|
         if office.official_indices.include? index
           title_temp = office.name
           ocdid_temp = office.division_id
+          break
         end
       end
 
-      # check to see if representative already exists in the database
-      existing_rep = Representative.find_by(name: official.name, ocdid: ocdid_temp, title: title_temp)
+      # Parse the address details
+      address = official.address&.first # Assuming we take the first address
+      street = address ? [address.line1, address.line2, address.line3].compact.join(' ') : ''
+      city = address&.city
+      state = address&.state
+      zip = address&.zip
 
-      # only create a representative if it doesn't exist in the database yet
-      next if existing_rep
-
-      rep = Representative.create!({ name: official.name, ocdid: ocdid_temp,
-          title: title_temp })
+      # Create a new Representative record with the additional fields
+      rep = Representative.create!({
+        name: official.name,
+        ocdid: ocdid_temp,
+        title: title_temp,
+        street: street,
+        city: city,
+        state: state,
+        zip: zip,
+        party: official.party,
+        photo_url: official.photo_url
+      })
       reps.push(rep)
     end
 
