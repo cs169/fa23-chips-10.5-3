@@ -10,37 +10,39 @@ class Representative < ApplicationRecord
       ocdid_temp = ''
       title_temp = ''
 
-      # Iterate through offices to find the office and division ID for the current official
       rep_info.offices.each do |office|
-        if office.official_indices.include? index
-          title_temp = office.name
-          ocdid_temp = office.division_id
-          break
-        end
+        next unless office.official_indices.include? index
+
+        title_temp = office.name
+        ocdid_temp = office.division_id
+        break
       end
 
-      # Parse the address details
-      address = official.address&.first # Assuming we take the first address
-      street = address ? [address.line1, address.line2, address.line3].compact.join(' ') : ''
-      city = address&.city
-      state = address&.state
-      zip = address&.zip
+      rep = Representative.create_helper(official, title_temp, ocdid_temp)
 
-      # Create a new Representative record with the additional fields
-      rep = Representative.create!({
-        name: official.name,
-        ocdid: ocdid_temp,
-        title: title_temp,
-        street: street,
-        city: city,
-        state: state,
-        zip: zip,
-        party: official.party,
-        photo_url: official.photo_url
-      })
       reps.push(rep)
     end
 
     reps
+  end
+
+  def self.create_helper(official, title_temp, ocdid_temp)
+    address = official.address&.first # Assuming we take the first address
+    street = address ? [address.line1, address.line2, address.line3].compact.join(' ') : ''
+    city = address&.city
+    state = address&.state
+    zip = address&.zip
+
+    Representative.create!({
+                             name:      official.name,
+                             ocdid:     ocdid_temp,
+                             title:     title_temp,
+                             street:    street,
+                             city:      city,
+                             state:     state,
+                             zip:       zip,
+                             party:     official.party,
+                             photo_url: official.photo_url
+                           })
   end
 end
