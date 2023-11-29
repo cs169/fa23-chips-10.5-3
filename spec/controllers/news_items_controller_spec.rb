@@ -34,10 +34,10 @@ RSpec.describe NewsItemsController, type: :controller do
 
   def news_item_params
     {
-      news: 'Example News',
-      title: 'Example Title',
-      description: 'Example Description',
-      link: 'http://example.com',
+      news:              'Example News',
+      title:             'Example Title',
+      description:       'Example Description',
+      link:              'http://example.com',
       representative_id: representative.id
     }
   end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddAddressAndPartyToRepresentatives < ActiveRecord::Migration[5.0]
   def change
     add_column :representatives, :street, :string
@@ -8,4 +10,3 @@ class AddAddressAndPartyToRepresentatives < ActiveRecord::Migration[5.0]
     add_column :representatives, :photo_url, :string
   end
 end
-
