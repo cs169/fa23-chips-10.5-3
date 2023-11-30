@@ -4,12 +4,14 @@ require 'rails_helper'
 
 RSpec.describe NewsItemsController, type: :controller do
   let!(:representative) { Representative.create!(name: 'Example Representative') }
-  let!(:news_item) { NewsItem.create!(title: 'Title', link: 'http://example.com', issue: 'Free Speech', representative: representative) }
+  let!(:news_item) do
+    NewsItem.create!(title: 'Title', link: 'http://example.com', issue: 'Free Speech', representative: representative)
+  end
 
   describe 'GET #index' do
     it 'renders the index template' do
       get :index, params: { representative_id: representative.id }
-      puts "Representative ID: #{representative.id}" 
+      puts "Representative ID: #{representative.id}"
       expect(response).to render_template(:index)
     end
 

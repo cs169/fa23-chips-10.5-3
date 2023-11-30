@@ -7,12 +7,11 @@ class NewsItemsController < ApplicationController
   def index
     @representative = Representative.find(params[:representative_id])
     @news_items = @representative.news_items
-    puts "News Items: #{@news_items}"
+    Rails.logger.debug { "News Items: #{@news_items}" }
     @news_items.each do |ni|
-      puts ni.inspect
+      Rails.logger.debug ni.inspect
     end
   end
-  
 
   def show; end
 
