@@ -1,0 +1,6 @@
+
+
+Finished in 0.00221 seconds (files took 2.72 seconds to load)
+0 examples, 0 failures
+
+Coverage report generated for RSpec to /home/codio/workspace/actionmap/coverage. 56 / 360 LOC (15.56%) covered.
