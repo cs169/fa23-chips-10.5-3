@@ -27,22 +27,56 @@ class Representative < ApplicationRecord
   end
 
   def self.create_helper(official, title_temp, ocdid_temp)
-    address = official.address&.first # Assuming we take the first address
+    address = official.address&.first
     street = address ? [address.line1, address.line2, address.line3].compact.join(' ') : ''
     city = address&.city
     state = address&.state
     zip = address&.zip
-
-    Representative.create!({
-                             name:      official.name,
-                             ocdid:     ocdid_temp,
-                             title:     title_temp,
-                             street:    street,
-                             city:      city,
-                             state:     state,
-                             zip:       zip,
-                             party:     official.party,
-                             photo_url: official.photo_url
-                           })
+  
+    representative = Representative.find_by(name: official.name)
+  
+    if representative
+      if representative.ocdid == ocdid_temp
+        # Update all attributes except ocdid if ocdid matches ocdid_temp
+        representative.assign_attributes({
+          title:     title_temp,
+          street:    street,
+          city:      city,
+          state:     state,
+          zip:       zip,
+          party:     official.party,
+          photo_url: official.photo_url
+        })
+      else
+        # Update all attributes, including ocdid if it does not match ocdid_temp
+        representative.assign_attributes({
+          title:     title_temp,
+          street:    street,
+          city:      city,
+          state:     state,
+          zip:       zip,
+          party:     official.party,
+          photo_url: official.photo_url,
+          ocdid:     ocdid_temp
+        })
+      end
+    else
+      # If no representative is found, create a new one
+      representative = Representative.find_or_initialize_by(name: official.name, ocdid: ocdid_temp)
+      representative.assign_attributes({
+        title:     title_temp,
+        street:    street,
+        city:      city,
+        state:     state,
+        zip:       zip,
+        party:     official.party,
+        photo_url: official.photo_url,
+      })
+    end
+  
+    representative.save if representative.changed?
+    representative
   end
+  
+  
 end
