@@ -5,7 +5,12 @@ class NewsItemsController < ApplicationController
   before_action :set_news_item, only: %i[show]
 
   def index
+    @representative = Representative.find(params[:representative_id])
     @news_items = @representative.news_items
+    Rails.logger.debug { "News Items: #{@news_items}" }
+    @news_items.each do |ni|
+      Rails.logger.debug ni.inspect
+    end
   end
 
   def show; end
