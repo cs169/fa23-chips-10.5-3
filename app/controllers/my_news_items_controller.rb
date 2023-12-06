@@ -22,14 +22,13 @@ class MyNewsItemsController < SessionController
       render :new, error: 'An error occurred when creating the news item.'
     end
   end
-  
-    # if @news_item.save
-    #   redirect_to representative_news_item_path(@representative, @news_item),
-    #               notice: 'News item was successfully created.'
-    # else
-    #   render :new, error: 'An error occurred when creating the news item.'
-    # end
 
+  # if @news_item.save
+  #   redirect_to representative_news_item_path(@representative, @news_item),
+  #               notice: 'News item was successfully created.'
+  # else
+  #   render :new, error: 'An error occurred when creating the news item.'
+  # end
 
   def update
     if @news_item.update(news_item_params)
@@ -49,12 +48,13 @@ class MyNewsItemsController < SessionController
   private
 
   def search_params_present?
-    params[:news_item].present? && params[:news_item][:representative_id].present? && params[:news_item][:issue].present?
+    params.dig(:news_item, :representative_id, :issue).present?
   end
-  
+
   def search_params
     params.require(:news_item).permit(:representative_id, :issue)
   end
+
   def set_representative
     @representative = Representative.find(
       params[:representative_id]
