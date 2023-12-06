@@ -13,13 +13,23 @@ class MyNewsItemsController < SessionController
 
   def create
     @news_item = NewsItem.new(news_item_params)
-    if @news_item.save
+    if search_params_present?
+      redirect_to my_news_items_search_path(search_params)
+    elsif @news_item.save
       redirect_to representative_news_item_path(@representative, @news_item),
                   notice: 'News item was successfully created.'
     else
       render :new, error: 'An error occurred when creating the news item.'
     end
   end
+  
+    # if @news_item.save
+    #   redirect_to representative_news_item_path(@representative, @news_item),
+    #               notice: 'News item was successfully created.'
+    # else
+    #   render :new, error: 'An error occurred when creating the news item.'
+    # end
+
 
   def update
     if @news_item.update(news_item_params)
@@ -38,6 +48,13 @@ class MyNewsItemsController < SessionController
 
   private
 
+  def search_params_present?
+    params[:news_item].present? && params[:news_item][:representative_id].present? && params[:news_item][:issue].present?
+  end
+  
+  def search_params
+    params.require(:news_item).permit(:representative_id, :issue)
+  end
   def set_representative
     @representative = Representative.find(
       params[:representative_id]
@@ -51,6 +68,9 @@ class MyNewsItemsController < SessionController
   def set_news_item
     @news_item = NewsItem.find(params[:id])
   end
+
+  # def set
+  # end
 
   # Only allow a list of trusted parameters through.
   def news_item_params
