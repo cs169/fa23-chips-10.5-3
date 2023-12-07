@@ -1,39 +1,40 @@
 .container.center-content
-  %h1{ style: 'text-align: center;' } Edit News Item
-
-  %p
-    %strong Representative:
-    = @representative.name
-
-  %p
-    %strong Issue:
-    = @issue
-    
-  %h2 Select an article:
-
-  = form_tag save_news_item_my_news_items_path, method: :post do
-    - @articles.each_with_index do |article, index|
-      .article
-        %div
-          %p.radio-title
-            %strong
-              = radio_button_tag 'selected_article', index
-              = label_tag "article_#{index}", "Title:"
-              = article[:title]
-          %strong
-            %p
-              = label_tag "article_#{index}", "Link:"
-              %a{ href: article[:url], target: '_blank' }= article[:url]
-          %strong
-            %p
-              = label_tag "article_#{index}", "Description:"
-              = article[:description]
+    %h1.center-text Edit News Item
 
     %p
-      %strong Rating:
-      = select_tag 'rating', options_for_select(['5 stars', '4 stars', '3 stars', '2 stars', '1 star'], selected: '5 stars'), class: 'form-control', style: 'width: auto;'
-    = hidden_field_tag :representative_id, @representative.id
-    = hidden_field_tag :selected_issue, @issue
+        %strong Representative:
+        = @representative.name
 
     %p
-      = submit_tag 'Save', class: 'btn btn-primary'
+        %strong Issue:
+        = @issue
+
+    %h2 Select an article:
+
+    = form_tag save_news_item_my_news_items_path, method: :post do
+        - @articles.each_with_index do |article, index|
+            .article
+                %div
+                    %p.radio-title
+                        %strong
+                            = radio_button_tag 'selected_article', index
+                            = label_tag "article_#{index}", 'Title:'
+                            = article[:title]
+                    %strong
+                        %p
+                            = label_tag "article_#{index}", 'Link:'
+                            %a{ href: article[:url], target: '_blank' }= article[:url]
+                    %strong
+                        %p
+                            = label_tag "article_#{index}", 'Description:'
+                            = article[:description]
+
+        %p
+            %strong Rating:
+            = select_tag 'rating', options_for_select(['5 stars', '4 stars', '3 stars',
+            '2 stars', '1 star'], selected: '5 stars'), class: 'form-control', style: 'width: auto;'
+        = hidden_field_tag :representative_id, @representative.id
+        = hidden_field_tag :selected_issue, @issue
+
+        %p
+            = submit_tag 'Save', class: 'btn btn-primary'

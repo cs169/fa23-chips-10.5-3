@@ -26,20 +26,17 @@ class MyNewsItemsController < SessionController
     selected_article_index = params[:selected_article].to_i
     selected_article = @articles[selected_article_index]
 
-    # rating = params[:rating]
-    puts "Session Issue: #{session[:issue]}"
-
     # Now, you can save the selected article and its rating to the database
     @news_item = NewsItem.new(
       title:             selected_article[:title],
-      link:               selected_article[:url],
+      link:              selected_article[:url],
       description:       selected_article[:description],
       representative_id: params[:representative_id],
       issue:             session[:issue]
     )
     if @news_item.save
-      puts "NewsItem ID: #{@news_item.id}"  # Print the ID of the news_item
-      redirect_to representative_news_item_path(representative_id: params[:representative_id], id: @news_item.id), notice: 'Article saved successfully!'
+      redirect_to representative_news_item_path(representative_id: params[:representative_id], id: @news_item.id),
+                  notice: 'Article saved successfully!'
     else
       redirect_to representative_news_items_path(params[:representative_id]), alert: 'Failed to save the news item.'
     end
@@ -112,19 +109,15 @@ class MyNewsItemsController < SessionController
   end
 
   def fetch_top_articles_from_news_api
-    api_key = 'e289b48723ef4f7d9dd2da95e91e231c'
-    keywords = "#{@representative.name} #{params[:issue]}"
-
     url = URI.parse('https://newsapi.org/v2/everything')
     url.query = URI.encode_www_form(
-      apiKey: api_key,
-      q:      keywords # Add the q parameter with representative name and issue
+      apiKey: 'e289b48723ef4f7d9dd2da95e91e231c',
+      q:      "#{@representative.name} #{params[:issue]}"
     )
 
     http = Net::HTTP.new(url.host, url.port)
     http.use_ssl = (url.scheme == 'https')
-    request = Net::HTTP::Get.new(url)
-    response = http.request(request)
+    response = http.request(Net::HTTP::Get.new(url))
 
     if response.is_a?(Net::HTTPSuccess)
       JSON.parse(response.body)['articles'].first(5).map do |article|
@@ -137,7 +130,6 @@ class MyNewsItemsController < SessionController
 
     else
       Rails.logger.error("Error fetching articles from News API: #{response.code} - #{response.body}")
-      [] # Return an empty array in case of an error
     end
   end
 end
