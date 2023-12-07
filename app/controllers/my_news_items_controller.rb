@@ -14,6 +14,7 @@ class MyNewsItemsController < SessionController
   def search
     set_representative
     @issue = params[:issue]
+    session[:issue] = @issue
     # Perform News API query and get top 5 articles
     @articles = fetch_top_articles_from_news_api
 
@@ -22,21 +23,25 @@ class MyNewsItemsController < SessionController
   end
 
   def save_news_item
+    @articles = fetch_top_articles_from_news_api
     selected_article_index = params[:selected_article].to_i
     selected_article = @articles[selected_article_index]
 
     # rating = params[:rating]
+    puts "Session Issue: #{session[:issue]}"
 
     # Now, you can save the selected article and its rating to the database
     @news_item = NewsItem.new(
       title:             selected_article[:title],
-      url:               selected_article[:url],
+      link:               selected_article[:url],
       description:       selected_article[:description],
       representative_id: params[:representative_id],
-      issue:             params[:selected_issue]
+      issue:             session[:issue]
     )
-
-    redirect_to representative_news_item_path, notice: 'Article saved successfully!' if @news_item.save
+    if @news_item.save
+      puts "NewsItem ID: #{@news_item.id}"  # Print the ID of the news_item
+      redirect_to representative_news_item_path(representative_id: params[:representative_id], id: @news_item.id), notice: 'Article saved successfully!'
+    end
   end
 
   def create
