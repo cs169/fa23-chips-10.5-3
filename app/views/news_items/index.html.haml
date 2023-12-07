@@ -30,6 +30,7 @@
                                         = item.title
                                         &nbsp;
                                         %i.fas.fa-external-link-alt
+                                %td= item.issue
                                 %td= item.description
                                 %td
                                     %time.timeago{ datetime: item.created_at.iso8601 }
