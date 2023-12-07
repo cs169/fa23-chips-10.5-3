@@ -9,9 +9,9 @@ political events in their area as well as aggregate, share and view news items i
 
 <!-- TODO: Update these for your repo! -->
 
-[![All Specs](https://github.com/cs169/fa23-chips-10.5-3/actions/workflows/specs.yml/badge.svg)](https://github.com/cs169/fa23-chips-10.5-<YOUR_GROUP_NUMBER>/actions) 
+[![All Specs](https://github.com/cs169/fa23-chips-10.5-03/actions/workflows/specs.yml/badge.svg)](https://github.com/cs169/fa23-chips-10.5-<YOUR_GROUP_NUMBER>/actions) 
 
-[![codecov](https://codecov.io/github/cs169/fa23-chips-10.5-3/graph/badge.svg?token=qRpZnZN3QQ)](https://codecov.io/github/cs169/fa23-chips-10.5-<YOUR_GROUP_NUMBER>/tree/master)
+[![codecov](https://codecov.io/github/cs169/fa23-chips-10.5-03/graph/badge.svg?token=qRpZnZN3QQ)](https://codecov.io/github/cs169/fa23-chips-10.5-<YOUR_GROUP_NUMBER>/tree/master)
 
 ![](https://github.com///actions/workflows//badge.svg)
 
