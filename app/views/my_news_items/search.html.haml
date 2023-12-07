@@ -1,0 +1,32 @@
+.container.center-content
+  %h1{ style: 'text-align: center;' } Edit News Item
+
+  %p
+    %strong Representative:
+    = @representative_name
+
+  %p
+    %strong Issue:
+    = @issue
+    
+  %h2 Select an article:
+
+  = form_tag select_article_path, method: :post do
+    - @articles.each_with_index do |article, index|
+      .article
+        %div
+          %p.radio-title
+            %strong
+              = radio_button_tag 'selected_article', index
+              = label_tag "article_#{index}", "Title:"
+              = article[:title]
+          %strong
+            %p
+              = label_tag "article_#{index}", "Link:"
+              %a{ href: article[:url], target: '_blank' }= article[:url]
+          %strong
+            %p
+              = label_tag "article_#{index}", "Description:"
+              = article[:description]
+
+    = submit_tag 'Select Article'

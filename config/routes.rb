@@ -45,4 +45,7 @@ Rails.application.routes.draw do
     end
   end
   get '/search/(:address)' => 'search#search', :as => 'search_representatives'
+
+  post '/select_article' => 'my_news_items#select_article', as: 'select_article'
+  
 end
