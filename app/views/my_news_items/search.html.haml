@@ -3,7 +3,7 @@
 
   %p
     %strong Representative:
-    = @representative_name
+    = @representative.name
 
   %p
     %strong Issue:
@@ -11,7 +11,7 @@
     
   %h2 Select an article:
 
-  = form_tag select_article_path, method: :post do
+  = form_tag save_news_item_my_news_items_path, method: :post do
     - @articles.each_with_index do |article, index|
       .article
         %div
@@ -29,4 +29,11 @@
               = label_tag "article_#{index}", "Description:"
               = article[:description]
 
-    = submit_tag 'Select Article'
+    %p
+      %strong Rating:
+      = select_tag 'rating', options_for_select(['5 stars', '4 stars', '3 stars', '2 stars', '1 star'], selected: '5 stars'), class: 'form-control', style: 'width: auto;'
+    = hidden_field_tag :representative_id, @representative.id
+    = hidden_field_tag :selected_issue, @issue
+
+    %p
+      = submit_tag 'Save', class: 'btn btn-primary'

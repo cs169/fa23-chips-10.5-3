@@ -42,10 +42,10 @@ Rails.application.routes.draw do
   resources :my_news_items do
     collection do
       get 'search'
+      post 'save_news_item', to: 'my_news_items#save_news_item', as: 'save_news_item'
     end
   end
   get '/search/(:address)' => 'search#search', :as => 'search_representatives'
 
-  post '/select_article' => 'my_news_items#select_article', as: 'select_article'
   
 end
