@@ -12,17 +12,16 @@ class MyNewsItemsController < SessionController
   def edit; end
 
   def search
-    set_representative
     @issue = params[:issue]
     session[:issue] = @issue
     # Perform News API query and get top 5 articles
     @articles = fetch_top_articles_from_news_api
-
     # Render the search results view
     render 'search'
   end
 
   def save_news_item
+    params[:issue] = session[:issue]
     @articles = fetch_top_articles_from_news_api
     selected_article_index = params[:selected_article].to_i
     selected_article = @articles[selected_article_index]
@@ -41,6 +40,8 @@ class MyNewsItemsController < SessionController
     if @news_item.save
       puts "NewsItem ID: #{@news_item.id}"  # Print the ID of the news_item
       redirect_to representative_news_item_path(representative_id: params[:representative_id], id: @news_item.id), notice: 'Article saved successfully!'
+    else
+      redirect_to representative_news_items_path(params[:representative_id]), alert: 'Failed to save the news item.'
     end
   end
 
